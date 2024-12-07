@@ -1,0 +1,85 @@
+<!-- editarGuia.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Guía</title>
+    <style>
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .cancel-button {
+            background-color: red;
+        }
+        .cancel-button:hover {
+            background-color: #e60000;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Guía</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="id_titulo">Título:</label>
+        {{ form.titulo }}
+
+        <label for="id_descripcion">Descripción:</label>
+        {{ form.descripcion }}
+
+        <label for="id_tipo">Tipo:</label>
+        {{ form.tipo }}
+
+        <label for="id_categoria">Categoría:</label>
+        {{ form.categoria }}
+
+        <label for="id_requisitos">Requisitos:</label>
+        {{ form.requisitos }}
+
+        <label for="id_documentos_necesarios">Documentos Necesarios:</label>
+        {{ form.documentos_necesarios }}
+
+        <label for="id_lugar_tramite">Lugar de Trámite:</label>
+        {{ form.lugar_tramite }}
+
+        <label for="id_plazo_estimado">Plazo Estimado:</label>
+        {{ form.plazo_estimado }}
+
+        <label for="id_costo">Costo:</label>
+        {{ form.costo }}
+
+        <label for="id_link_oficial">Link Oficial:</label>
+        {{ form.link_oficial }}
+        
+        <button type="submit">Guardar Cambios</button>
+        <a href="{% url 'verGuias' %}">
+            <button type="button" style="background-color: red;" class="cancel-button">Volver</button>
+        </a>
+    </form>
+</body>
+</html>

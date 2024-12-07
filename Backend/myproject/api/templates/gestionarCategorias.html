@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestionar Categorías</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .action-button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .delete-button {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'general' %}">Volver</a>
+    <h1>Gestionar Categorías</h1>
+
+    <!-- Formulario para agregar nueva categoría -->
+    <h2>Agregar Nueva Categoría</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="nombre">Nombre de la nueva categoría:</label>
+        <input type="text" name="nombre" required>
+        <button type="submit" name="agregar_categoria">Agregar Categoría</button>
+    </form>
+
+    <hr>
+
+    <!-- Tabla de categorías existentes -->
+    <h2>Categorías Existentes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre de Categoría</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categoria in categorias %}
+                <tr>
+                    <td>{{ categoria.nombre }}</td>
+                    <td>
+                        <!-- Formulario para editar una categoría -->
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="text" name="nombre" value="{{ categoria.nombre }}" required>
+                            <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
+                            <button type="submit" name="editar_categoria" class="action-button">Editar</button>
+                        </form>
+                        <!-- Formulario para borrar una categoría -->
+                        <form method="post" style="display:inline;">
+                            {% csrf_token %}
+                            <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
+                            <button type="submit" name="borrar_categoria" class="action-button delete-button">Borrar</button>
+                        </form>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">No hay categorías disponibles.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>

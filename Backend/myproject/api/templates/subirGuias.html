@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subir Guías</title>
+</head>
+<body>
+    <h1>Subir Guías</h1>
+    <form method="post" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <input type="file" name="archivo" accept=".csv, .xls, .xlsx" required>
+        <button type="submit">Subir Guías</button>
+    </form>
+</body>
+</html>

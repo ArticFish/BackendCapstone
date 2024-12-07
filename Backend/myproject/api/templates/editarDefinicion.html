@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Definición</title>
+    <style>
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Editar Definición</h1>
+    <form method="POST">
+        {% csrf_token %}
+        
+        <label for="id_titulo">Título:</label>
+        {{ form.titulo }}
+
+        <label for="id_definicion">Definición:</label>
+        {{ form.definicion }}
+        
+        <label for="id_categoria">Categoría:</label>
+        <select name="categoria" id="id_categoria">
+            {% for categoria in form.categoria.field.queryset %}
+                <option value="{{ categoria.id }}" {% if categoria.id == form.instance.categoria.id %}selected{% endif %}>
+                    {{ categoria.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+        <button type="submit" >Guardar Cambios</button>
+        <a href="{% url 'verDefiniciones' %}">
+            <button type="button" style="background-color: red;" class="cancel-button">Volver</button>
+        </a>
+    </form>
+</body>
+</html>
