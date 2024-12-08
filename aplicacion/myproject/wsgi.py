@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 import os
 import sys
 
-print("Directorio actual:", os.getcwd())  # Esto imprimirá el directorio actual
 sys.path.append('/app')  # Asegúrate de que esta ruta esté correcta
 
 from django.core.wsgi import get_wsgi_application
