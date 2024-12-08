@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.db import transaction
 import pandas as pd
 
-openai.api_key = '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'
+openai.api_key = ''
 class OpenAIMessageView(APIView):
     
     def post(self, request, *args, **kwargs):
