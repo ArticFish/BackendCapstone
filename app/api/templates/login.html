@@ -11,11 +11,19 @@
     
     <form method="post" class="login-form">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div>
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+        </div>
+        <div>
+            <label for="id_password">Password:</label>
+            {{ form.password }}
+        </div>
         <button type="submit" class="login-button">Login</button>
+        {% if form.errors %}
+            <p class="error-messages">Credenciales Incorrectas</p>
+        {% endif %}
     </form>
-    {% if form.errors %}
-        <p class="error-messages">{{ form.errors }}</p>
-    {% endif %}
+
 </body>
 </html>

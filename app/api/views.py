@@ -19,7 +19,6 @@ from django.urls import reverse
 from openpyxl import Workbook
 from django.http import HttpResponse
 
-
 openai.api_key = config('OPENAI_API_KEY')
 
 class OpenAIMessageView(APIView):    
@@ -229,7 +228,7 @@ def subir_definiciones(request):
 
         return redirect('verDefiniciones')
     return render(request, 'subirDefiniciones.html')
-
+@login_required
 def general(request):
     return render(request, 'general.html')
 @login_required
