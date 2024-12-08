@@ -133,4 +133,4 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CSRF_TRUSTED_ORIGINS= ['http://*','https://backendcapstone-production-f192.up.railway.app/']
+CSRF_TRUSTED_ORIGINS= ['http://*','https://backendcapstone-production-f192.up.railway.app']
