@@ -10,8 +10,9 @@ from django import forms
 from django.http import JsonResponse
 from django.db import transaction
 import pandas as pd
+from decouple import config
 
-openai.api_key = ''
+openai.api_key = config('OPENAI_API_KEY')
 class OpenAIMessageView(APIView):
     
     def post(self, request, *args, **kwargs):
