@@ -1,51 +1,18 @@
-<!-- editarGuia.html -->
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Guía</title>
-    <style>
-        form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 1em;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input, textarea, select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .cancel-button {
-            background-color: red;
-        }
-        .cancel-button:hover {
-            background-color: #e60000;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'editar.css' %}">
 </head>
 <body>
+    <a href="{% url 'verGuias' %}" class="boton volver">Volver</a>
     <h1>Editar Guía</h1>
     <form method="POST">
         {% csrf_token %}
-        
+
         <label for="id_titulo">Título:</label>
         {{ form.titulo }}
 
@@ -75,10 +42,11 @@
 
         <label for="id_link_oficial">Link Oficial:</label>
         {{ form.link_oficial }}
-        
+
         <button type="submit">Guardar Cambios</button>
+
         <a href="{% url 'verGuias' %}">
-            <button type="button" style="background-color: red;" class="cancel-button">Volver</button>
+            <button type="button" class="cancel-button">Volver</button>
         </a>
     </form>
 </body>

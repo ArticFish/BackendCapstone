@@ -157,10 +157,6 @@ def borrar_guia(request, id):
     tramite.delete()
     return redirect('verGuias')  # Redirige a la lista de guías después de borrar
 
-
-
-
-
 def ver_categorias(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
     return render(request, 'verCategorias.html', {'categorias': categorias})
@@ -282,6 +278,7 @@ def subir_guias(request):
 
 def gestionar_categorias(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
+    mensaje_error = None  # Inicializamos el mensaje de error
 
     # Manejo de agregar nueva categoría
     if request.method == 'POST':
@@ -290,20 +287,32 @@ def gestionar_categorias(request):
 
         if nombre:  # Si hay un nombre
             if 'agregar_categoria' in request.POST:  # Agregar nueva categoría
-                Categoria.objects.create(nombre=nombre)
+                if Categoria.objects.filter(nombre=nombre).exists():
+                    mensaje_error = "La categoría ya existe."
+                else:
+                    Categoria.objects.create(nombre=nombre)
             elif 'editar_categoria' in request.POST:  # Editar categoría existente
                 categoria_id = request.POST.get('categoria_id')
                 categoria = get_object_or_404(Categoria, id=categoria_id)
-                categoria.nombre = nombre
-                categoria.save()
 
-            return redirect('gestionarCategorias')  # Redirigir a la misma página
+                # Verificar que no se duplique el nombre de la categoría
+                if Categoria.objects.filter(nombre=nombre).exclude(id=categoria.id).exists():
+                    mensaje_error = "La categoría ya existe."
+                else:
+                    categoria.nombre = nombre
+                    categoria.save()
+
+            # Redirigir a la misma página con el mensaje de error
+            return render(request, 'gestionarCategorias.html', {'categorias': categorias, 'mensaje_error': mensaje_error})
 
         # Borrar categoría
         if 'borrar_categoria' in request.POST:
             categoria_id = request.POST.get('categoria_id')
             categoria = get_object_or_404(Categoria, id=categoria_id)
             categoria.delete()
-            return redirect('gestionarCategorias')  # Redirigir a la misma página
 
-    return render(request, 'gestionarCategorias.html', {'categorias': categorias})
+            # Redirigir a la misma página
+            return render(request, 'gestionarCategorias.html', {'categorias': categorias, 'mensaje_error': mensaje_error})
+
+    # Renderizar la página sin errores
+    return render(request, 'gestionarCategorias.html', {'categorias': categorias, 'mensaje_error': mensaje_error})

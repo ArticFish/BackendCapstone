@@ -1,43 +1,22 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Guías de Trámites</title>
-    <style>
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .action-button {
-            margin: 0 5px;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .delete-button {
-            background-color: #f44336;
-        }
-    </style>
+
+    <link rel="stylesheet" href="{% static 'ver.css' %}">
 </head>
 <body>
-    <a href="{% url 'general' %}">Volver</a>
-    <h1>Listado de Guías</h1>
-    <a href="{% url 'subirGuias' %}">Subir Guias</a>
+    <a href="{% url 'general' %}" class="boton volver">Volver</a>
+<h1>Listado de Guías</h1>
+<a href="{% url 'subirGuias' %}" class="boton">Subir Guias</a>
+
+<div class="table-container">
     <table>
         <thead>
             <tr>
                 <th>Título</th>
                 <th>Descripción</th>
-                <th>Tipo</th>
                 <th>Categoría</th>
                 <th>Acciones</th>
             </tr>
@@ -47,7 +26,6 @@
             <tr>
                 <td>{{ tramite.titulo }}</td>
                 <td>{{ tramite.descripcion }}</td>
-                <td>{{ tramite.tipo }}</td>
                 <td>{{ tramite.categoria }}</td>
                 <td>
                     <a href="{% url 'editarGuia' tramite.id %}" class="action-button">Editar</a>
@@ -57,5 +35,6 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
 </body>
 </html>

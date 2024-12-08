@@ -1,0 +1,47 @@
+/* Estilos generales para el cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Estilo para los enlaces */
+a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #007BFF;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+a:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Estilo para el contenedor de enlaces (opcional para espaciado) */
+body a {
+    display: block;
+}
+/* Estilos para la tarjeta */
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 20px; /* Espaciado alrededor de la tarjeta */
+}

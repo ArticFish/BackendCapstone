@@ -1,16 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Guías</title>
+    <link rel="stylesheet" href="{% static 'global.css' %}">
 </head>
 <body>
-    <h1>Subir Guías</h1>
-    <form method="post" enctype="multipart/form-data" action="">
-        {% csrf_token %}
-        <input type="file" name="archivo" accept=".csv, .xls, .xlsx" required>
-        <button type="submit">Subir Guías</button>
-    </form>
+    <!-- Botón Volver en la esquina superior izquierda fuera de la tarjeta -->
+    <a href="{% url 'verGuias' %}" class="boton volver">Volver</a>
+
+    <div class="card">
+        <h1>Subir Guías</h1>
+        <form method="post" enctype="multipart/form-data" action="">
+            {% csrf_token %}
+            <input type="file" name="archivo" accept=".csv, .xls, .xlsx" required>
+            <button type="submit">Subir Guías</button>
+        </form>
+    </div>
 </body>
 </html>
