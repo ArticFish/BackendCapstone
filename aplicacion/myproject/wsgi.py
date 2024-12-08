@@ -10,7 +10,7 @@ https://docs.djangoproject.com/en/5.1/howto/deployment/wsgi/
 import os
 import sys
 
-sys.path.append('/app/aplicacion')  # Asegúrate de que esta ruta esté correcta
+sys.path.append('/aplicacion')  # Asegúrate de que esta ruta esté correcta
 
 from django.core.wsgi import get_wsgi_application
 
