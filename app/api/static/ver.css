@@ -58,7 +58,7 @@ a {
     max-width: 900px;
     max-height: 500px; /* Ajusta este valor según lo que necesites */
     overflow-y: auto; /* Habilita el scroll vertical */
-    margin-top: 60px; /* Evita que el contenido se solape con el botón "Volver" */
+    margin-top: 5px; /* Evita que el contenido se solape con el botón "Volver" */
     box-sizing: border-box;
     border-radius: 8px;
 }
@@ -154,3 +154,97 @@ button.logout:hover {
     background-color: #007BFF;
     color: white;
 }
+
+/* Contenedor del formulario */
+.filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+/* Input de texto para buscar por título */
+.filter-container input[type="text"] {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.filter-container input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Dropdown de categorías */
+.filter-container select {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.filter-container select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+/* Botón de filtrado */
+.filter-container button {
+    padding: 8px 16px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-container button:hover {
+    background-color: #0056b3;
+}
+
+/* Adaptación para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .filter-container input[type="text"],
+    .filter-container select,
+    .filter-container button {
+        width: 100%;
+    }
+}
+
+/* Contenedor de ambos formularios */
+.form-group {
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos */
+    justify-content: space-between; /* Agrega espacio entre los formularios */
+    gap: 20px; /* Espaciado entre formularios */
+    margin: 5px 0;
+}
+
+/* Estilo adicional para cada formulario */
+.filter-container {
+    flex: 3; /* Controla el espacio que ocupa el formulario de búsqueda */
+}
+
+

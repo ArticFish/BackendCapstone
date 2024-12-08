@@ -19,7 +19,7 @@ from django.urls import reverse
 from openpyxl import Workbook
 from django.http import HttpResponse
 
-openai.api_key = config('OPENAI_API_KEY')
+# openai.api_key = config('OPENAI_API_KEY')
 
 class OpenAIMessageView(APIView):    
     def post(self, request, *args, **kwargs):
@@ -92,16 +92,49 @@ class CategoriaList(APIView):
         serializer = CategoriaSerializer(categorias, many=True)
         return Response(serializer.data)
 @login_required   
+
+
+@login_required   
 def ver_definiciones(request):
-    
-    definiciones = Definicion.objects.all()  # Obtiene todos los datos del modelo Definicion
-    print(definiciones)
-    return render(request, 'verDefiniciones.html', {'definiciones': definiciones})
+    # Obtener parámetros de búsqueda del formulario
+    titulo = request.GET.get('titulo', '')  # Parámetro para buscar por título
+    categoria_id = request.GET.get('categoria', '')  # Parámetro para buscar por ID de categoría
+
+    # Filtrar las definiciones según los parámetros
+    definiciones = Definicion.objects.all()
+    if titulo:
+        definiciones = definiciones.filter(titulo__icontains=titulo)
+    if categoria_id:
+        definiciones = definiciones.filter(categoria_id=categoria_id)  # Filtrar por ID exacta de categoría
+
+    # Obtener todas las categorías
+    categorias = Categoria.objects.all()
+
+    return render(request, 'verDefiniciones.html', {
+        'definiciones': definiciones,
+        'categorias': categorias,
+    })
+
 @login_required
 def ver_guias(request):
-    tramites = Tramite.objects.all()  # Obtiene todos los datos del modelo Tramite
-    return render(request, 'verGuias.html', {'tramites': tramites})
+    # Obtener parámetros de búsqueda del formulario
+    titulo = request.GET.get('titulo', '')  # Parámetro para buscar por título
+    categoria_id = request.GET.get('categoria', '')  # Parámetro para buscar por ID de categoría
 
+    # Filtrar los trámites según los parámetros
+    tramites = Tramite.objects.all()
+    if titulo:
+        tramites = tramites.filter(titulo__icontains=titulo)
+    if categoria_id:
+        tramites = tramites.filter(categoria_id=categoria_id)  # Filtrar por ID exacto de categoría
+
+    # Obtener todas las categorías
+    categorias = Categoria.objects.all()
+
+    return render(request, 'verGuias.html', {
+        'tramites': tramites,
+        'categorias': categorias,
+    })
 # Editar y Borrar Definición
 class DefinicionForm(forms.ModelForm):
     categoria = forms.ModelChoiceField(

@@ -3,50 +3,76 @@
 <html>
 <head>
     <title>Guías de Trámites</title>
-
     <link rel="stylesheet" href="{% static 'ver.css' %}">
 </head>
 <body>
 
+    <!-- Botón de logout -->
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button class=" boton logout"type="submit">Logout</button>
+        <button class="boton logout" type="submit">Logout</button>
     </form>
 
     <a href="{% url 'general' %}" class="boton volver">Volver</a>
 
-    <h1>Tramites</h1>
+    <h1>Trámites</h1>
 
-    <a href="{% url 'subirGuias' %}" class="boton">Subir Tramites</a>
+    <a href="{% url 'subirGuias' %}" class="boton">Subir Trámites</a>
 
-    <form action="{% url 'descargarGuias' %}" method="get">
-        <button class="boton subir" type="submit">Descargar Formato</button>
-    </form>
+    
+    <div class="form-group">
+        <!-- Formulario de búsqueda -->
+        <form method="get" action="{% url 'verGuias' %}" class="filter-container">
+            <input type="text" name="titulo" placeholder="Buscar por título" value="{{ request.GET.titulo }}">
+    
+            <!-- Dropdown de categorías -->
+            <select name="categoria">
+                <option value="">Todas las categorías</option>
+                {% for cat in categorias %}
+                <option value="{{ cat.id }}" {% if request.GET.categoria|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
+                    {{ cat.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        
+            <button type="submit">Filtrar</button>
+        </form>
+    
+        <!-- Formulario para descargar -->
+        <form action="{% url 'descargarGuias' %}" method="get">
+            <button class="boton subir" type="submit">Descargar Formato</button>
+        </form>
+    </div>
+    
 
-<div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Descripción</th>
-                <th>Categoría</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for tramite in tramites %}
-            <tr>
-                <td>{{ tramite.titulo }}</td>
-                <td>{{ tramite.descripcion }}</td>
-                <td>{{ tramite.categoria }}</td>
-                <td>
-                    <a href="{% url 'editarGuia' tramite.id %}" class="action-button">Editar</a>
-                    <a href="{% url 'borrarGuia' tramite.id %}" class="action-button delete-button">Borrar</a>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tramite in tramites %}
+                <tr>
+                    <td>{{ tramite.titulo }}</td>
+                    <td>{{ tramite.descripcion }}</td>
+                    <td>{{ tramite.categoria.nombre }}</td> <!-- Mostrar el nombre de la categoría -->
+                    <td>
+                        <a href="{% url 'editarGuia' tramite.id %}" class="action-button">Editar</a>
+                        <a href="{% url 'borrarGuia' tramite.id %}" class="action-button delete-button">Borrar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No se encontraron resultados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
