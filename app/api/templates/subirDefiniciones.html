@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{% static 'global.css' %}">
 </head>
 <body>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="logout"type="submit">Logout</button>
+    </form>
     <!-- Botón Volver en la esquina superior izquierda fuera de la tarjeta -->
     <a href="{% url 'verDefiniciones' %}" class="boton volver">Volver</a>
 
@@ -16,7 +20,7 @@
         <form method="post" enctype="multipart/form-data" action="">
             {% csrf_token %}
             <input type="file" name="archivo" accept=".csv, .xls, .xlsx" required>
-            <button type="submit">Subir</button>
+            <button class="buttonSave" type="submit">Subir</button>
         </form>
     </div>
 </body>

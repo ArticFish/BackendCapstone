@@ -8,8 +8,12 @@
     <link rel="stylesheet" href="{% static 'categorias.css' %}">
 </head>
 <body>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="logout"type="submit">Logout</button>
+    </form>
     <a href="{% url 'general' %}" class="boton volver">Volver</a>
-    <h1>Gestionar Categorías</h1>
+    <h1>Categorías</h1>
 
     <!-- Card para el formulario de agregar nueva categoría -->
     <div class="card">
@@ -17,7 +21,7 @@
         <form method="post">
             {% csrf_token %}
             <input class ="input2" type="text" name="nombre" required>
-            <button type="submit" name="agregar_categoria">Agregar Categoría</button>
+            <button class="button" type="submit" name="agregar_categoria">Agregar Categoría</button>
         </form>
         {% if mensaje_error %}
             <div class="alert error">{{ mensaje_error }}</div>  
@@ -44,13 +48,13 @@
                                 {% csrf_token %}
                                 <input class="input" type="text" name="nombre" value="{{ categoria.nombre }}" required>
                                 <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
-                                <button type="submit" name="editar_categoria" class="action-button">Editar</button>
+                                <button class="button" type="submit" name="editar_categoria" class="action-button">Editar</button>
                             </form>
                             <!-- Formulario para borrar una categoría -->
                             <form method="post" style="display:inline;">
                                 {% csrf_token %}
                                 <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
-                                <button type="submit" name="borrar_categoria" class="action-button delete-button">Borrar</button>
+                                <button  class="redbutton" type="submit" name="borrar_categoria" class="action-button delete-button">Borrar</button>
                             </form>
                         </td>
                     </tr>

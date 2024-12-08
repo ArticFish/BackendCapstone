@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
 }
-form {
+.form {
     max-width: 600px;
     margin: 50px auto; /* Centrado con margen superior */
     padding: 2em;
@@ -32,11 +32,11 @@ input, textarea, select {
 }
 
 /* Estilos para el botón "Guardar Cambios" */
-button {
+.buttonSave {
     width: 100%;
     padding: 12px;
     font-size: 16px;
-    background-color: #4CAF50;
+    background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 4px;
@@ -44,19 +44,19 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
+.buttonSave:hover {
+    background-color: #0056b3;
 }
 
 /* Estilos para el botón "Volver" */
 .cancel-button {
-    background-color: red;
+    margin-top: 5px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color:red;
     color: white;
     border: none;
-    padding: 12px;
-    width: 100%;
-    margin-top: 10px;
-    text-align: center;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -101,5 +101,30 @@ a.volver {
 
 a.boton:hover {
     background-color: #007BFF;
+    color: white;
+}
+
+.logout{
+    text-decoration: none;
+    font-size: 18px;
+    color: #007BFF;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilo para el enlace "Volver" */
+button.logout {
+    display: inline-block;
+    position: absolute;
+    top: 20px; /* Fijarlo en la parte superior */
+    right: 20px; /* Fijarlo en la esquina izquierda */
+    z-index: 10; /* Asegura que el botón se mantenga encima del contenido */
+}
+
+button.logout:hover {
+    background-color: #ff0000;
     color: white;
 }

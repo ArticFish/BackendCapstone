@@ -8,11 +8,15 @@
     <link rel="stylesheet" href="{% static 'general.css' %}">
 </head>
 <body>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="logout"type="submit">Logout</button>
+    </form>
     <div>
         <h3>INFORMAKIRI ADMIN</h3>
     </div>
     <div class="card">
-        <a href="{% url 'verGuias' %}">Guias</a>
+        <a href="{% url 'verGuias' %}">Tramites</a>
         <a href="{% url 'verDefiniciones' %}">Definiciones</a>
         <a href="{% url 'gestionarCategorias' %}">Categorías</a>
     </div>

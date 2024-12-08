@@ -8,9 +8,13 @@
     <link rel="stylesheet" href="{% static 'editar.css' %}">
 </head>
 <body>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="logout"type="submit">Logout</button>
+    </form>
     <a href="{% url 'verGuias' %}" class="boton volver">Volver</a>
-    <h1>Editar Guía</h1>
-    <form method="POST">
+    <h1>Editar Tramite</h1>
+    <form class="form" method="POST">
         {% csrf_token %}
 
         <label for="id_titulo">Título:</label>
@@ -43,10 +47,10 @@
         <label for="id_link_oficial">Link Oficial:</label>
         {{ form.link_oficial }}
 
-        <button type="submit">Guardar Cambios</button>
+        <button class="buttonSave" type="submit">Guardar Cambios</button>
 
         <a href="{% url 'verGuias' %}">
-            <button type="button" class="cancel-button">Volver</button>
+            <button class="cancel-button" type="button" >Cancelar</button>
         </a>
     </form>
 </body>

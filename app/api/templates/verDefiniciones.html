@@ -6,9 +6,19 @@
     <link rel="stylesheet" href="{% static 'ver.css' %}">
 </head>
 <body>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class=" boton logout"type="submit">Logout</button>
+    </form>
+
     <a href="{% url 'general' %}" class="boton volver">Volver</a>
-    <h1>Listado de Definiciones</h1>
+
+    <h1>Definiciones</h1>
     <a href="{% url 'subirDefiniciones' %}" class="boton">Subir definiciones</a>
+
+    <form action="{% url 'descargarDefiniciones' %}" method="get">
+        <button type="submit">Descargar Formato</button>
+    </form>
 
     <div class="table-container">
         <table>

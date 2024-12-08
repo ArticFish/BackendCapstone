@@ -7,9 +7,21 @@
     <link rel="stylesheet" href="{% static 'ver.css' %}">
 </head>
 <body>
+
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class=" boton logout"type="submit">Logout</button>
+    </form>
+
     <a href="{% url 'general' %}" class="boton volver">Volver</a>
-<h1>Listado de Guías</h1>
-<a href="{% url 'subirGuias' %}" class="boton">Subir Guias</a>
+
+    <h1>Tramites</h1>
+
+    <a href="{% url 'subirGuias' %}" class="boton">Subir Tramites</a>
+
+    <form action="{% url 'descargarGuias' %}" method="get">
+        <button class="boton subir" type="submit">Descargar Formato</button>
+    </form>
 
 <div class="table-container">
     <table>

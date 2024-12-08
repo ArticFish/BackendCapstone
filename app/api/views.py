@@ -11,10 +11,18 @@ from django.http import JsonResponse
 from django.db import transaction
 import pandas as pd
 from decouple import config
+from django.contrib.auth.decorators import login_required
+openai.api_key =" config('OPENAI_API_KEY')"
+from django.contrib.auth import logout
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from openpyxl import Workbook
+from django.http import HttpResponse
+
 
 openai.api_key = config('OPENAI_API_KEY')
-class OpenAIMessageView(APIView):
-    
+
+class OpenAIMessageView(APIView):    
     def post(self, request, *args, **kwargs):
         user_message = request.data.get('message')
         if not user_message:
@@ -84,13 +92,13 @@ class CategoriaList(APIView):
         categorias = Categoria.objects.all()
         serializer = CategoriaSerializer(categorias, many=True)
         return Response(serializer.data)
-    
+@login_required   
 def ver_definiciones(request):
     
     definiciones = Definicion.objects.all()  # Obtiene todos los datos del modelo Definicion
     print(definiciones)
     return render(request, 'verDefiniciones.html', {'definiciones': definiciones})
-
+@login_required
 def ver_guias(request):
     tramites = Tramite.objects.all()  # Obtiene todos los datos del modelo Tramite
     return render(request, 'verGuias.html', {'tramites': tramites})
@@ -106,7 +114,7 @@ class DefinicionForm(forms.ModelForm):
     class Meta:
         model = Definicion
         fields = ['titulo', 'definicion', 'categoria']
-
+@login_required
 def editar_definicion(request, id):
     definicion = get_object_or_404(Definicion, pk=id)
     if request.method == 'POST':
@@ -118,7 +126,7 @@ def editar_definicion(request, id):
         form = DefinicionForm(instance=definicion)
     
     return render(request, 'editarDefinicion.html', {'form': form})
-
+@login_required
 def borrar_definicion(request, id):
     definicion = get_object_or_404(Definicion, pk=id)
     definicion.delete()
@@ -139,7 +147,7 @@ class TramiteForm(forms.ModelForm):
             'requisitos': forms.Textarea(attrs={'rows': 3}),
             'documentos_necesarios': forms.Textarea(attrs={'rows': 3}),
         }
-# Editar Guía
+@login_required
 def editar_guia(request, id):
     tramite = get_object_or_404(Tramite, pk=id)
     if request.method == 'POST':
@@ -152,16 +160,17 @@ def editar_guia(request, id):
 
     return render(request, 'editarGuia.html', {'form': form})
 
-# Borrar Guía
+@login_required
 def borrar_guia(request, id):
     tramite = get_object_or_404(Tramite, pk=id)
     tramite.delete()
     return redirect('verGuias')  # Redirige a la lista de guías después de borrar
 
+@login_required
 def ver_categorias(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
     return render(request, 'verCategorias.html', {'categorias': categorias})
-
+@login_required
 def agregar_categoria(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')  # Obtener el nombre de la nueva categoría
@@ -169,12 +178,12 @@ def agregar_categoria(request):
             Categoria.objects.create(nombre=nombre)  # Crear la nueva categoría
             return redirect('verCategorias')  # Redirigir a la página de ver categorías
     return render(request, 'agregarCategoria.html')
-
+@login_required
 def borrar_categoria(request, id):
     categoria = get_object_or_404(Categoria, id=id)  # Obtener la categoría por ID
     categoria.delete()  # Borrar la categoría
     return redirect('verCategorias')  # Redirigir a la página de ver categorías
-
+@login_required
 def subir_definiciones(request):
     if request.method == 'POST':
         archivo = request.FILES.get('archivo')
@@ -223,7 +232,7 @@ def subir_definiciones(request):
 
 def general(request):
     return render(request, 'general.html')
-
+@login_required
 def subir_guias(request):
     if request.method == "POST":
         # Validar que se haya subido un archivo
@@ -276,7 +285,7 @@ def subir_guias(request):
         return redirect('verGuias')  # Redirige después de agregar las guías
 
     return render(request, 'subirGuias.html')
-
+@login_required
 def gestionar_categorias(request):
     categorias = Categoria.objects.all()  # Obtener todas las categorías
     mensaje_error = None  # Inicializamos el mensaje de error
@@ -317,3 +326,60 @@ def gestionar_categorias(request):
 
     # Renderizar la página sin errores
     return render(request, 'gestionarCategorias.html', {'categorias': categorias, 'mensaje_error': mensaje_error})
+
+def custom_logout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
+
+@login_required
+def descargar_definiciones(request):
+    # Crear un archivo de Excel
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Definiciones'
+    
+    # Escribir los encabezados de las columnas
+    ws.append(['titulo', 'definicion', 'categoria'])
+    
+    # Obtener las definiciones de la base de datos
+    definiciones = Definicion.objects.all()
+    
+    # Escribir las filas con las definiciones
+    for definicion in definiciones:
+        ws.append([definicion.titulo, definicion.definicion, definicion.categoria.nombre])
+    
+    # Crear una respuesta HTTP para el archivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="definiciones.xlsx"'
+    
+    # Guardar el archivo Excel en la respuesta
+    wb.save(response)
+    
+    return response
+
+@login_required
+def descargar_tramites(request):
+    # Crear un archivo de Excel
+    wb = Workbook()
+    ws = wb.active
+    ws.title = 'Tramites'
+    
+    # Escribir los encabezados de las columnas
+    ws.append(['titulo','descripcion','tipo','categoria','requisitos','documentos_necesarios','lugar_tramite','plazo_estimado','costo','link_oficial'])
+
+    # Obtener las definiciones de la base de datos
+    tramites = Tramite.objects.all()
+    
+    # Escribir las filas con las definiciones
+    for tramite in tramites:
+        ws.append([tramite.titulo, tramite.descripcion,tramite.tipo, tramite.categoria.nombre,tramite.requisitos,tramite.documentos_necesarios
+                   ,tramite.lugar_tramite,tramite.plazo_estimado,tramite.costo,tramite.link_oficial])
+    
+    # Crear una respuesta HTTP para el archivo Excel
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="tramites.xlsx"'
+    
+    # Guardar el archivo Excel en la respuesta
+    wb.save(response)
+    
+    return response

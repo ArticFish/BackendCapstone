@@ -134,3 +134,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CSRF_TRUSTED_ORIGINS= ['http://*','https://backendcapstone-production-f192.up.railway.app']
+
+LOGIN_REDIRECT_URL = 'general'
+LOGOUT_REDIRECT_URL = '/login/' 
+LOGIN_URL = '/login/'

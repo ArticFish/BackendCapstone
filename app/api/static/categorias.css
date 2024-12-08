@@ -17,13 +17,9 @@ body {
 a {
     color: #007BFF;
     text-decoration: none;
-    font-weight: bold;
     margin-bottom: 20px;
 }
 
-a:hover {
-    text-decoration: underline;
-}
 
 /* Estilo para los títulos */
 h1, h2 {
@@ -73,7 +69,7 @@ form {
     border-radius: 5px;
     width: 95%;
 }
-button[type="submit"] {
+.button[type="submit"] {
     background-color: #007BFF;
     color: white;
     padding: 10px 15px;
@@ -83,10 +79,22 @@ button[type="submit"] {
     transition: background-color 0.3s;
 }
 
-button[type="submit"]:hover {
+.button[type="submit"]:hover {
     background-color: #0056b3;
 }
+.redbutton{
+    background-color: red;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
+.redbutton[type="submit"]:hover {
+    background-color: rgb(158, 4, 4);
+}
 /* Estilos para la tabla */
 .table-container {
     width: 100%;
@@ -184,4 +192,29 @@ a.boton:hover {
     margin-bottom: 20px;
     border-radius: 5px;
     font-weight: bold;
+}
+
+.logout{
+    text-decoration: none;
+    font-size: 18px;
+    color: #007BFF;
+    padding: 10px 20px;
+    margin: 10px;
+    border: 2px solid #007BFF;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estilo para el enlace "Volver" */
+button.logout {
+    display: inline-block;
+    position: absolute;
+    top: 20px; /* Fijarlo en la parte superior */
+    right: 20px; /* Fijarlo en la esquina izquierda */
+    z-index: 10; /* Asegura que el botón se mantenga encima del contenido */
+}
+
+button.logout:hover {
+    background-color: #ff0000;
+    color: white;
 }
