@@ -1,0 +1,128 @@
+/* Estilos generales para el cuerpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    text-align: center;
+}
+.boton{
+    background-color: #f1f1f1;
+    color: #007BFF;
+    border: 1px solid #007BFF;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el enlace "Volver" */
+a.volver {
+    display: inline-block;
+    position: absolute;
+    top: 20px; /* Fijarlo en la parte superior */
+    left: 20px; /* Fijarlo en la esquina izquierda */
+    z-index: 10; /* Asegura que el botón se mantenga encima del contenido */
+}
+
+a.boton:hover {
+    background-color: #007BFF;
+    color: white;
+}
+
+/* Título */
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los enlaces (Subir Guías) */
+a {
+    text-decoration: none;
+    color: #007BFF;
+    margin-bottom: 15px;
+    display: block;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para el contenedor de la tabla con scroll */
+.table-container {
+    border-radius: 8px;
+    width: 100%;
+    max-width: 900px;
+    max-height: 500px; /* Ajusta este valor según lo que necesites */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    margin-top: 60px; /* Evita que el contenido se solape con el botón "Volver" */
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+/* Estilo para la tabla */
+table {
+    
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Centra la tabla */
+}
+
+/* Estilo para los encabezados de la tabla */
+th {
+    background-color: #007BFF;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* Estilo para las celdas de la tabla */
+td {
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+/* Estilo para las filas de la tabla */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para los botones de acción */
+.action-button, .delete-button {
+    background-color: #007BFF;
+    color: white;
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+    transition: background-color 0.3s;
+}
+
+.action-button:hover, .delete-button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón de borrar */
+.delete-button {
+    background-color: #d9534f;
+}
+
+.delete-button:hover {
+    background-color: #c9302c;
+}

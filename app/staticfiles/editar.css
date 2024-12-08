@@ -1,0 +1,105 @@
+/* Estilos generales para el formulario */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+}
+form {
+    max-width: 600px;
+    margin: 50px auto; /* Centrado con margen superior */
+    padding: 2em;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para los elementos de los formularios */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #333;
+}
+
+/* Estilos para los inputs, textarea y select */
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Estilos para el botón "Guardar Cambios" */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para el botón "Volver" */
+.cancel-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    margin-top: 10px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-button:hover {
+    background-color: #e60000;
+}
+
+/* Estilo para el enlace que contiene el botón "Volver" */
+a {
+    display: block;
+    text-decoration: none;
+}
+
+/* Estilos para los títulos */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.boton{
+    background-color: #f1f1f1;
+    color: #007BFF;
+    border: 1px solid #007BFF;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el enlace "Volver" */
+a.volver {
+    display: inline-block;
+    position: absolute;
+    top: 20px; /* Fijarlo en la parte superior */
+    left: 20px; /* Fijarlo en la esquina izquierda */
+    z-index: 10; /* Asegura que el botón se mantenga encima del contenido */
+}
+
+a.boton:hover {
+    background-color: #007BFF;
+    color: white;
+}
