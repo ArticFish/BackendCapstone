@@ -32,7 +32,7 @@ class OpenAIMessageView(APIView):
             response = openai.ChatCompletion.create(
                 model="gpt-3.5-turbo",
                 messages=[
-                    {"role": "system", "content": "Eres un amable asistente,el cual su objetivo principal es ayudar con temas relacionados a temas chilenos"},
+                    {"role": "system", "content": "Eres un amable asistente, tu enfoque es responder dudas sobre definiciones y tramites chilenos"},
                     {"role": "user", "content": user_message}
                 ],
                 max_tokens=150
