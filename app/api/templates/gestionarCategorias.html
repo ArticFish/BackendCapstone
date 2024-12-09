@@ -6,6 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestionar Categorías</title>
     <link rel="stylesheet" href="{% static 'categorias.css' %}">
+    <style>
+        /* Estilos para el modal */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5) !important; /* Fondo oscuro */
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            margin: 15% auto;
+            border-radius: 5px;
+            width: 40%;
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .modal-footer {
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
     <form method="post" action="{% url 'logout' %}">
@@ -43,18 +73,18 @@
                     <tr>
                         <td>{{ categoria.nombre }}</td>
                         <td>
-                            <!-- Formulario para editar una categoría -->
-                            <form method="post" style="display:inline;">
+                             <!-- Formulario para editar una categoría -->
+                             <form method="post" style="display:inline;">
                                 {% csrf_token %}
                                 <input class="input" type="text" name="nombre" value="{{ categoria.nombre }}" required>
                                 <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
                                 <button class="button" type="submit" name="editar_categoria" class="action-button">Editar</button>
                             </form>
-                            <!-- Formulario para borrar una categoría -->
+                            <!-- Formulario para borrar una categoría con confirmación -->
                             <form method="post" style="display:inline;">
                                 {% csrf_token %}
                                 <input type="hidden" name="categoria_id" value="{{ categoria.id }}">
-                                <button  class="redbutton" type="submit" name="borrar_categoria" class="action-button delete-button">Borrar</button>
+                                <button  class="redbutton" type="button" onclick="confirmarBorrado(event, '{{ categoria.id }}')">Borrar</button>
                             </form>
                         </td>
                     </tr>
@@ -66,11 +96,51 @@
             </tbody>
         </table>
     </div>
-    
 
-</div>
-
+    <!-- Modal de confirmación -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmar Borrado</h2>
+            </div>
+            <div class="modal-body">
+                <p>¿Está seguro de que desea borrar esta categoría?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="button" onclick="cerrarModal()">Cancelar</button>
+                <form id="deleteForm" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="categoria_id" id="categoria_id">
+                    <button class="redbutton" type="submit" name="borrar_categoria">Borrar</button>
+                </form>
+            </div>
+        </div>
     </div>
 
+    <script>
+        // Función para mostrar el modal de confirmación
+        function confirmarBorrado(event, categoriaId) {
+            // Evitar que el formulario se envíe
+            event.preventDefault();
+
+            // Establecer el ID de la categoría en el formulario de borrado
+            document.getElementById('categoria_id').value = categoriaId;
+
+            // Mostrar el modal
+            document.getElementById('myModal').style.display = "block";
+        }
+
+        // Función para cerrar el modal
+        function cerrarModal() {
+            document.getElementById('myModal').style.display = "none";
+        }
+
+        // Cerrar el modal si se hace clic fuera de él
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('myModal')) {
+                cerrarModal();
+            }
+        }
+    </script>
 </body>
 </html>

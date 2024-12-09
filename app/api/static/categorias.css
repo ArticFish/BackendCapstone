@@ -69,7 +69,7 @@ form {
     border-radius: 5px;
     width: 95%;
 }
-.button[type="submit"] {
+.button {
     background-color: #007BFF;
     color: white;
     padding: 10px 15px;
@@ -79,7 +79,7 @@ form {
     transition: background-color 0.3s;
 }
 
-.button[type="submit"]:hover {
+.button:hover {
     background-color: #0056b3;
 }
 .redbutton{
@@ -175,7 +175,6 @@ a.volver {
     position: absolute;
     top: 20px; /* Fijarlo en la parte superior */
     left: 20px; /* Fijarlo en la esquina izquierda */
-    z-index: 10; /* Asegura que el botón se mantenga encima del contenido */
 }
 
 a.boton:hover {
@@ -200,7 +199,7 @@ a.boton:hover {
     color: #007BFF;
     padding: 10px 20px;
     margin: 10px;
-    border: 2px solid #007BFF;
+    border: 1px solid #007BFF;
     border-radius: 4px;
     transition: background-color 0.3s, color 0.3s;
 }
@@ -211,7 +210,6 @@ button.logout {
     position: absolute;
     top: 20px; /* Fijarlo en la parte superior */
     right: 20px; /* Fijarlo en la esquina izquierda */
-    z-index: 10; /* Asegura que el botón se mantenga encima del contenido */
 }
 
 button.logout:hover {
