@@ -19,6 +19,7 @@ from django.urls import reverse
 from openpyxl import Workbook
 from django.http import HttpResponse
 
+#descomentar para subir
 openai.api_key = config('OPENAI_API_KEY')
 
 class OpenAIMessageView(APIView):    
